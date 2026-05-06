@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="de-AT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIM, IoT, CAFM: Welche Technologie-Schicht zuerst? | Gebäude-Digital</title>
+<meta name="description" content="Vergleich von BIM, IoT und CAFM für Bestandsgebäude. Welche Technologie-Schicht zuerst implementiert werden sollte — mit Reifegrad, Use Cases und Budget-Bandbreiten.">
+<link rel="canonical" href="https://nichtagentur.github.io/gebaeude-digital/bim-iot-cafm-technologie-stack.html">
+<link rel="stylesheet" href="assets/css/style.css">
+<meta property="og:title" content="BIM, IoT, CAFM: Welche Technologie-Schicht zuerst?">
+<meta property="og:description" content="Entscheidungshilfe für den Technologie-Stack der Gebäudedigitalisierung.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_AT">
+<meta property="og:image" content="https://nichtagentur.github.io/gebaeude-digital/assets/img/hero-stack.jpg">
+<meta property="og:url" content="https://nichtagentur.github.io/gebaeude-digital/bim-iot-cafm-technologie-stack.html">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article",
+"mainEntityOfPage":"https://nichtagentur.github.io/gebaeude-digital/bim-iot-cafm-technologie-stack.html",
+"headline":"BIM, IoT, CAFM: Welche Technologie-Schicht zuerst?",
+"description":"Vergleich der drei zentralen Technologie-Schichten in der Gebäudedigitalisierung.",
+"image":["https://nichtagentur.github.io/gebaeude-digital/assets/img/hero-stack.jpg"],
+"datePublished":"2026-05-06","dateModified":"2026-05-06","inLanguage":"de-AT",
+"author":{"@type":"Person","name":"Rene Seedorff","email":"seedorff@s3re.at"},
+"publisher":{"@type":"Organization","name":"Gebäude-Digital (Workshop-Demo)"},
+"keywords":"BIM, IoT, CAFM, Gebäudetechnik, Smart Building, Stack"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Startseite","item":"https://nichtagentur.github.io/gebaeude-digital/"},
+  {"@type":"ListItem","position":2,"name":"BIM IoT CAFM","item":"https://nichtagentur.github.io/gebaeude-digital/bim-iot-cafm-technologie-stack.html"}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Was ist der Unterschied zwischen BIM und CAFM?","acceptedAnswer":{"@type":"Answer","text":"BIM (Building Information Modeling) ist primär ein Planungs- und Dokumentationsmodell der Gebäudegeometrie und -struktur. CAFM (Computer-Aided Facility Management) ist eine Betriebssoftware für Wartung, Flächen- und Vertragsmanagement. BIM beschreibt das Gebäude, CAFM steuert seinen Betrieb."}},
+  {"@type":"Question","name":"Brauche ich alle drei Schichten gleichzeitig?","acceptedAnswer":{"@type":"Answer","text":"Nein. Empfohlene Reihenfolge: erst IoT (Datengrundlage), dann CAFM (Betriebssteuerung), dann optional BIM (vor allem bei Sanierung oder Neubau). Bestandsbauten kommen häufig ohne BIM aus."}},
+  {"@type":"Question","name":"Welche Standards sollte ich verlangen?","acceptedAnswer":{"@type":"Answer","text":"Für IoT: Brick Schema oder Project Haystack als Datenmodell, MQTT oder OPC UA als Protokoll. Für BIM: IFC 4.3 als offenes Format. Für CAFM: GEFMA 444-konforme Plattformen mit dokumentierten APIs."}},
+  {"@type":"Question","name":"Wie integrieren sich die drei Schichten?","acceptedAnswer":{"@type":"Answer","text":"Über semantische IDs auf Anlagenebene. Wichtig ist eine konsistente Anlagenkennzeichnung (z.B. nach AKS oder DIN 6779), die in allen drei Systemen identisch verwendet wird."}}
+]}
+</script>
+</head>
+<body>
+<div class="demo-notice">Workshop-Demo — Vergleichstabellen und Bandbreiten zur Orientierung.</div>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="./">Gebäude<span>·Digital</span></a>
+    <nav class="site-nav" aria-label="Hauptnavigation">
+      <a href="./">Startseite</a>
+      <a href="warum-gebaeude-digitalisieren-2026.html">Warum jetzt</a>
+      <a href="digitaler-zwilling-bestandsbau-roi.html">Digitaler Zwilling</a>
+      <a href="bim-iot-cafm-technologie-stack.html" aria-current="page">BIM·IoT·CAFM</a>
+      <a href="ueber.html">Über</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<article>
+  <h1>BIM, IoT, CAFM: Welche Technologie-Schicht zuerst?</h1>
+  <p class="meta">
+    <span>Von <a rel="author" href="ueber.html">Rene Seedorff</a></span>
+    <span><time datetime="2026-05-06">6. Mai 2026</time></span>
+    <span>Lesezeit ca. 14 Minuten</span>
+  </p>
+
+  <img class="hero-img" src="assets/img/hero-stack.jpg" alt="Gebäudeleitstand mit mehreren Dashboards und Tablet — Symbolbild Technologie-Stack BIM IoT CAFM" width="1600" height="900" loading="eager" fetchpriority="high">
+
+  <section class="tldr">
+    <h2>TL;DR</h2>
+    <p>Die drei Buchstabenkombinationen werden im Verkaufsgespräch gerne vermischt. Sie lösen aber unterschiedliche Probleme. Pragmatische Reihenfolge im Bestand: <strong>1. IoT (Datengrundlage), 2. CAFM (Betriebssteuerung), 3. BIM (nur bei größerer Sanierung oder Neubau).</strong> Wer im Bestand mit BIM beginnt, investiert oft zwölfmonatige Modellierungsarbeit, ohne in dieser Zeit eine einzige Betriebs­kennzahl zu verbessern.</p>
+  </section>
+
+  <p>Wenn ich in Workshops mit Bauherren oder Asset Managern frage „Was sollten wir zuerst tun — BIM, IoT oder CAFM?&#8220;, kommt fast immer ein Achselzucken. Drei verschiedene Disziplinen, drei verschiedene Beraterszenen, drei verschiedene Anbieter — und alle behaupten, der richtige Einstiegspunkt zu sein. In diesem Artikel ordne ich die Schichten nüchtern ein.</p>
+
+  <h2>Was die drei Schichten wirklich bedeuten</h2>
+
+  <h3>BIM — Building Information Modeling</h3>
+  <p><strong>Was es ist:</strong> Ein digitales, objektorientiertes 3D-Modell des Gebäudes mit Geometrie, Materialien, Bauteil­eigenschaften und Beziehungen. Im Idealfall im offenen IFC-Format. Im Neubau heute Standard, im Bestand selten verfügbar.</p>
+  <p><strong>Was es löst:</strong> Planung, Koordination zwischen Gewerken, Mengenermittlung, Sanierungs­planung. Es ist primär ein <em>Planungs­werkzeug</em>, sekundär ein Dokumentations­werkzeug.</p>
+  <p><strong>Was es nicht löst:</strong> Den laufenden Betrieb. Ein BIM-Modell weiß nicht, dass die Lüftung gerade über Soll läuft.</p>
+
+  <h3>IoT — Internet of Things in der Gebäudetechnik</h3>
+  <p><strong>Was es ist:</strong> Sensorik (Verbrauch, Klima, Belegung, Vibration) plus Datentransport (LoRaWAN, M-Bus, KNX, BACnet) plus Datenplattform mit Zeitreihen­speicher und Regelwerk.</p>
+  <p><strong>Was es löst:</strong> Echtzeit-Wissen über das Gebäude. Liefert die Datengrundlage für CSRD, EPBD, Optimierung, Predictive Maintenance.</p>
+  <p><strong>Was es nicht löst:</strong> Wartungsplanung, Flächen­management, Verträge. IoT-Plattformen sind keine Betriebs­software.</p>
+
+  <h3>CAFM — Computer-Aided Facility Management</h3>
+  <p><strong>Was es ist:</strong> Betriebssoftware für die Bewirtschaftung. Wartungs­pläne, Tickets, Flächen­management, Vertragsverwaltung, Reinigung, Schließsysteme. Klassische Anbieter: Planon, Pit FM, RIB iTWO FM, Spartacus, Wave Facility.</p>
+  <p><strong>Was es löst:</strong> Den operativen Alltag des FM-Teams. Macht Wartungs­zyklen nachvollziehbar, dokumentiert Mängel, erlaubt Mieter­service-Ticketing.</p>
+  <p><strong>Was es nicht löst:</strong> Optimierung. CAFM weiß, wann zuletzt gewartet wurde — nicht, ob die Anlage gerade ineffizient läuft.</p>
+
+  <h2>Vergleichstabelle</h2>
+
+  <table>
+    <thead>
+      <tr><th>Kriterium</th><th>BIM</th><th>IoT</th><th>CAFM</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Hauptzweck</td><td>Planung & Dokumentation</td><td>Echtzeit-Daten & Optimierung</td><td>Betriebs­steuerung</td></tr>
+      <tr><td>Reifegrad im Bestand</td><td>Niedrig</td><td>Mittel-Hoch</td><td>Hoch</td></tr>
+      <tr><td>Standardformate</td><td>IFC 4.3</td><td>Brick, Haystack, MQTT, OPC UA</td><td>GEFMA 444, REST APIs</td></tr>
+      <tr><td>Initialinvestition (5.000 m²)</td><td>30.000–120.000 €</td><td>15.000–60.000 €</td><td>20.000–80.000 € + Lizenz</td></tr>
+      <tr><td>Time-to-Value</td><td>6–18 Monate</td><td>3–6 Monate</td><td>4–9 Monate</td></tr>
+      <tr><td>CSRD-relevant</td><td>Indirekt</td><td>Direkt (Pflicht-Datenquelle)</td><td>Indirekt (Wartungs­dokumentation)</td></tr>
+      <tr><td>EPBD-relevant</td><td>Bei Sanierung</td><td>Direkt</td><td>Indirekt</td></tr>
+      <tr><td>FM-Team-Akzeptanz</td><td>Niedrig (kein Tagesbezug)</td><td>Mittel</td><td>Hoch (Tagesgeschäft)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Empfohlene Reihenfolge im Bestand</h2>
+
+  <h3>Schritt 1 — IoT zuerst (Monat 0–6)</h3>
+  <p>Die Datengrundlage steht oben. Ohne IoT-Schicht sind weder CSRD-Reporting noch EPBD-Nachweis noch belastbare Wirtschaftlichkeits­analysen für weitere Investitionen möglich. Ziel im ersten halben Jahr: alle Hauptverbräuche und Hauptanlagen automatisch erfasst, Daten in zentralem Modell verfügbar, erste Quick-Win-Optimierungen umgesetzt.</p>
+  <p><em>Typisches Budget Mittelobjekt:</em> 25.000–50.000 € einmalig + 12.000–20.000 € jährlich.</p>
+
+  <h3>Schritt 2 — CAFM modernisieren (Monat 4–12, parallel)</h3>
+  <p>Wer noch mit Excel-Wartungslisten oder einer 15 Jahre alten On-Premise-CAFM-Lösung arbeitet, sollte parallel zur IoT-Einführung den CAFM-Stack auf eine API-fähige Plattform heben. Wichtig dabei: <strong>gleiche Anlagen-IDs in IoT und CAFM</strong>. Sonst entstehen zwei Datenwelten, die nicht zusammenfinden.</p>
+  <p><em>Typisches Budget:</em> 30.000–80.000 € Migration + Lizenz, je nach Portfoliogröße.</p>
+
+  <h3>Schritt 3 — BIM nur dort, wo Sanierung oder Neubau ansteht (Monat 12+)</h3>
+  <p>Ein vollständiges BIM-Modell für ein Bestandsgebäude rückwirkend zu erstellen, ohne dass Sanierung oder Umbau ansteht, ist meist <em>nicht</em> wirtschaftlich. Die Modellierungs­kosten amortisieren sich erst, wenn das Modell in einem Bauprojekt aktiv genutzt wird.</p>
+  <p><em>Ausnahme:</em> Punktwolken-Scan plus vereinfachtes Raum- und Anlagenmodell (kein vollständiges BIM) — diese „Light-Variante&#8220; ist sinnvoll als Trägerstruktur für IoT-Daten und liegt typischerweise bei 18.000–28.000 € pro mittelgroßem Objekt.</p>
+
+  <h2>Drei häufige Fehler bei der Reihenfolge</h2>
+
+  <ol>
+    <li><strong>BIM zuerst, weil &#8220;State of the Art&#8221; klingt.</strong> Das Modell veraltet, bevor es betrieblichen Nutzen entfaltet. Sechs- bis zwölfmonatige Modellierungsarbeit ohne messbare Betriebs­verbesserung in dieser Zeit.</li>
+    <li><strong>IoT-Plattform ohne CAFM-Integration.</strong> Optimierungs­empfehlungen aus der IoT-Plattform landen im FM-Team als E-Mail oder PDF — und werden ignoriert. Erst wenn Empfehlungen automatisch zu CAFM-Tickets werden, entsteht Workflow.</li>
+    <li><strong>CAFM-Wechsel ohne API-Anforderung.</strong> Die alte CAFM-Lösung wird durch eine neue ersetzt, die ebenfalls keine offenen Schnittstellen hat. Nach drei Jahren steht der Kunde wieder vor der gleichen Migrationsfrage.</li>
+  </ol>
+
+  <h2>Standards, auf die Sie bestehen sollten</h2>
+
+  <table>
+    <thead><tr><th>Schicht</th><th>Standard</th><th>Warum</th></tr></thead>
+    <tbody>
+      <tr><td>IoT-Datenmodell</td><td>Brick Schema oder Project Haystack</td><td>Vermeidet Vendor-Lock-In, ermöglicht Portfolio-Aggregation</td></tr>
+      <tr><td>IoT-Protokolle</td><td>MQTT, OPC UA, BACnet/IP</td><td>Hersteller­übergreifend, dokumentiert, lange Verfügbarkeit</td></tr>
+      <tr><td>BIM-Format</td><td>IFC 4.3 (nicht proprietär)</td><td>Zukunftsfähig, herstellerneutral</td></tr>
+      <tr><td>Anlagenkennzeichnung</td><td>AKS oder DIN 6779</td><td>Konsistente IDs zwischen IoT, CAFM, BIM</td></tr>
+      <tr><td>CAFM-Schnittstellen</td><td>GEFMA 444, REST/JSON</td><td>Integration mit IoT-Plattform, Reporting</td></tr>
+      <tr><td>Reporting</td><td>ESRS E1, GRESB, CRREM</td><td>Direkte CSRD-Tauglichkeit</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Integration: wo die drei Schichten zusammenfinden</h2>
+
+  <p>Die wichtigste Integrationsregel: <strong>eine Anlage hat eine ID — über alle Schichten hinweg.</strong> Klingt banal, ist in der Praxis das häufigste Hindernis bei Portfolio-Roll-outs. Lüftungsanlage „RLT-01-Geschoss-3-Nord&#8220; muss in der IoT-Plattform, im CAFM und (sofern vorhanden) im BIM-Modell exakt gleich heißen — und idealerweise einer normierten Kennzeichnung folgen.</p>
+
+  <p>Konkret bedeutet das in der Implementierung:</p>
+  <ul>
+    <li>Anlagenkennzeichnungs­schema vor Plattform­auswahl festlegen.</li>
+    <li>Bestehende Datenbestände (Excel, alte CAFM, GLT-Datenpunkte) bereinigen und auf das Schema mappen — typisch 4–8 Personentage pro mittlerem Objekt.</li>
+    <li>Mapping-Tabelle versionieren und im IoT-Modell als Quelle der Wahrheit ablegen.</li>
+  </ul>
+
+  <h2>Ist das alles nicht zu viel auf einmal?</h2>
+
+  <p>Doch — wenn man es als Big Bang versucht. Mein Vorschlag aus der Praxis: ein <em>Pilotobjekt</em>, ein <em>Pilotumfang</em> (Reifegrad 1, IoT only), zwölf Monate Lernen, dann Roll-out. Die zweite Welle wird typischerweise dreimal schneller umgesetzt als die erste, weil Standards, Verträge und Schemata stehen. Die dritte Welle nochmals doppelt so schnell.</p>
+
+  <div class="callout"><strong>Einer der wenigen verlässlichen Hebel:</strong> Pilotbudget bewusst <em>nicht</em> aus dem operativen FM-Budget nehmen. Pilotinvestitionen amortisieren sich später, brauchen aber initial Schutz vor Quartalsdruck.</div>
+
+  <section class="related">
+    <h2>Verwandte Artikel</h2>
+    <ul>
+      <li><a href="warum-gebaeude-digitalisieren-2026.html">Warum Gebäudedigitalisierung 2026 keine Option mehr ist</a> — der regulatorische Kontext.</li>
+      <li><a href="digitaler-zwilling-bestandsbau-roi.html">Digitaler Zwilling im Bestandsbau: ROI in 18 Monaten</a> — Wirtschaftlichkeit eines integrierten Setups.</li>
+    </ul>
+  </section>
+
+  <section class="faq">
+    <h2>Häufige Fragen</h2>
+    <details>
+      <summary>Was ist der Unterschied zwischen BIM und CAFM?</summary>
+      <p>BIM ist primär ein Planungs- und Dokumentations­modell der Gebäudegeometrie und -struktur. CAFM ist eine Betriebssoftware für Wartung, Flächen- und Vertragsmanagement. BIM beschreibt das Gebäude, CAFM steuert seinen Betrieb.</p>
+    </details>
+    <details>
+      <summary>Brauche ich alle drei Schichten gleichzeitig?</summary>
+      <p>Nein. Empfohlene Reihenfolge: erst IoT (Datengrundlage), dann CAFM (Betriebssteuerung), dann optional BIM. Bestandsbauten kommen häufig ohne vollständiges BIM-Modell aus, eine Punktwolken-Light-Variante reicht.</p>
+    </details>
+    <details>
+      <summary>Welche Standards sollte ich verlangen?</summary>
+      <p>Für IoT: Brick Schema oder Project Haystack als Datenmodell, MQTT oder OPC UA als Protokoll. Für BIM: IFC 4.3 als offenes Format. Für CAFM: GEFMA-444-konforme Plattformen mit dokumentierten REST-APIs und garantiertem Datenexport.</p>
+    </details>
+    <details>
+      <summary>Wie integrieren sich die drei Schichten?</summary>
+      <p>Über semantische IDs auf Anlagen­ebene. Wichtig ist eine konsistente Anlagenkennzeichnung (z.B. nach AKS oder DIN 6779), die in allen drei Systemen identisch verwendet wird — und vor der Plattform­auswahl festgelegt wurde.</p>
+    </details>
+    <details>
+      <summary>Wer sollte das Projekt im Unternehmen führen?</summary>
+      <p>Erfahrungsgemäß funktioniert ein Tandem aus Asset Management (Budget, ROI-Verantwortung) und Facility Management (operative Umsetzung). Reine IT-Projekt­führung erzeugt häufig Lösungen, die im Betrieb nicht akzeptiert werden.</p>
+    </details>
+  </section>
+
+  <section class="author">
+    <div class="author-avatar">RS</div>
+    <div class="author-body">
+      <p><strong>Rene Seedorff</strong> <span class="role">· Autor</span></p>
+      <p>Workshop-Demo-Inhalt. Fragen und Anmerkungen gerne an <a href="mailto:seedorff@s3re.at">seedorff@s3re.at</a>.</p>
+    </div>
+  </section>
+</article>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div>© 2026 Gebäude-Digital · Workshop-Demo</div>
+    <nav>
+      <a href="ueber.html">Über</a> ·
+      <a href="impressum.html">Impressum</a> ·
+      <a href="datenschutz.html">Datenschutz</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
