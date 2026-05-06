@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="de-AT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wie der Auto-Publisher funktioniert | Gebäude-Digital</title>
+<meta name="description" content="Mini-Präsentation: Wie ein automatisierter Prozess alle 5 Minuten einen recherchierten Artikel auf den Blog publiziert.">
+<link rel="canonical" href="https://nichtagentur.github.io/gebaeude-digital/automation.html">
+<meta name="robots" content="index,follow">
+<style>
+  :root{
+    --bg:#0a1822; --fg:#eef3f7; --muted:#9fb1c0; --accent:#5fb6e8;
+    --accent-soft:rgba(95,182,232,.15); --line:rgba(255,255,255,.10);
+    --code-bg:#0f2230;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+  .deck{scroll-snap-type:y mandatory;overflow-y:scroll;height:100vh}
+  .slide{
+    scroll-snap-align:start;min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:48px 7vw 56px;border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .num{position:absolute;top:18px;right:24px;color:var(--muted);
+    font-size:.8rem;letter-spacing:.15em;text-transform:uppercase}
+  h1{font-size:clamp(2rem,5vw,3.6rem);line-height:1.1;letter-spacing:-.025em;
+    margin:0 0 16px;max-width:22ch}
+  h2{font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.2;letter-spacing:-.015em;
+    margin:0 0 16px}
+  p{font-size:1.15rem;line-height:1.6;max-width:62ch;color:#dde6ed;margin:0 0 14px}
+  p.lede{font-size:1.3rem;color:var(--muted);max-width:60ch;margin:0 0 28px}
+  ul,ol{font-size:1.1rem;line-height:1.7;max-width:62ch;color:#dde6ed;padding-left:22px;margin:0 0 16px}
+  li{margin-bottom:8px}
+  strong{color:#fff}
+  code,pre{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+    font-size:.92rem;background:var(--code-bg);padding:2px 7px;border-radius:4px;
+    color:#cfe7f6}
+  pre{padding:18px 22px;overflow-x:auto;border-left:3px solid var(--accent);
+    margin:18px 0;border-radius:6px;line-height:1.55;white-space:pre-wrap}
+  .grid{display:grid;gap:18px;margin-top:16px}
+  .grid.two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .grid.three{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:rgba(255,255,255,.04);border:1px solid var(--line);
+    border-radius:10px;padding:18px 22px}
+  .card h3{margin:0 0 6px;font-size:1.05rem;color:var(--accent)}
+  .card p{font-size:.97rem;margin:0;color:#cdd9e3}
+  .pill{display:inline-block;background:var(--accent-soft);color:var(--accent);
+    padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:600;
+    letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+  .timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:20px 0;max-width:760px}
+  .tick{background:var(--accent-soft);border:1px solid rgba(95,182,232,.4);
+    border-radius:8px;padding:12px 8px;text-align:center;font-size:.78rem;color:#cfe7f6}
+  .tick b{display:block;color:var(--accent);font-size:1.05rem;margin-bottom:2px}
+  .nav{position:fixed;bottom:18px;right:22px;display:flex;gap:6px;z-index:10}
+  .nav a{display:inline-block;width:34px;height:34px;line-height:34px;text-align:center;
+    background:rgba(255,255,255,.08);color:var(--fg);text-decoration:none;
+    border-radius:6px;font-size:1.1rem;border:1px solid var(--line)}
+  .nav a:hover{background:var(--accent-soft);color:var(--accent)}
+  a.link{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+  .footnote{font-size:.85rem;color:var(--muted);margin-top:18px}
+  .arch{margin:24px 0;display:flex;gap:0;align-items:stretch;flex-wrap:wrap}
+  .step{flex:1 1 160px;padding:14px 16px;background:rgba(255,255,255,.04);
+    border:1px solid var(--line);border-right:none;font-size:.95rem;position:relative;min-width:140px}
+  .step:last-child{border-right:1px solid var(--line)}
+  .step:after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);
+    background:var(--bg);padding:0 4px;color:var(--accent);font-weight:700}
+  .step:last-child:after{content:""}
+  .step b{display:block;color:var(--accent);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  @media(max-width:720px){
+    .timeline{grid-template-columns:repeat(3,1fr)}
+    .arch{flex-direction:column}
+    .step{border-right:1px solid var(--line)}
+    .step:after{content:"↓";right:50%;top:auto;bottom:-9px;transform:translateX(50%)}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Slide-Navigation">
+  <a href="#s1" title="Slide 1">1</a>
+  <a href="#s2" title="Slide 2">2</a>
+  <a href="#s3" title="Slide 3">3</a>
+  <a href="#s4" title="Slide 4">4</a>
+  <a href="#s5" title="Slide 5">5</a>
+  <a href="#s6" title="Slide 6">6</a>
+  <a href="#s7" title="Slide 7">7</a>
+</nav>
+
+<div class="deck">
+
+<section class="slide" id="s1">
+  <div class="num">01 / Intro</div>
+  <span class="pill">Workshop-Demo · 6. Mai 2026</span>
+  <h1>Sechs Artikel.<br>30 Minuten.<br>Vollautomatisch.</h1>
+  <p class="lede">Wie ein einzelnes Python-Script alle fünf Minuten einen recherchierten Fachartikel inklusive Bild generiert, in den Blog einbettet und auf GitHub Pages live nimmt — ohne menschliche Interaktion zwischen den Iterationen.</p>
+  <p>↓ scrollen oder Pfeiltasten</p>
+</section>
+
+<section class="slide" id="s2">
+  <div class="num">02 / Was passiert</div>
+  <h2>Der Auftrag</h2>
+  <p class="lede">Eine halbe Stunde lang, alle fünf Minuten, ein neuer Artikel auf dem Blog — mit Hero-Bild, ein Artikel zusätzlich mit Video-Embed.</p>
+  <div class="timeline">
+    <div class="tick"><b>00:00</b>Predictive Maintenance + Video</div>
+    <div class="tick"><b>05:00</b>LoRaWAN Submetering</div>
+    <div class="tick"><b>10:00</b>ISO 50001 2026</div>
+    <div class="tick"><b>15:00</b>CO₂-Bilanz/m²</div>
+    <div class="tick"><b>20:00</b>Smart Meter Österreich</div>
+    <div class="tick"><b>25:00</b>Mieterstrom digital</div>
+  </div>
+  <p>Sechs Topics, sechs Tick-Zeitpunkte, sechs git pushes. Der gesamte Lauf endet nach 30 Minuten — und der Prozess hält sich selbst an.</p>
+</section>
+
+<section class="slide" id="s3">
+  <div class="num">03 / Architektur</div>
+  <h2>Was ein Tick tut</h2>
+  <div class="arch">
+    <div class="step"><b>1 · Topic</b>Aus statischer Liste den nächsten Topic-Eintrag (Slug, Titel, Keyword, Tag) ziehen.</div>
+    <div class="step"><b>2 · Text</b>OpenRouter → Gemini 2.5 Flash Lite. Prompt erzwingt JSON mit TLDR, Sections, FAQ.</div>
+    <div class="step"><b>3 · Bild</b>OpenRouter → Gemini 3.1 Flash Image. Prompt mit konstanter Stil-DNA + Topic-Motiv.</div>
+    <div class="step"><b>4 · Render</b>Python-Templating in HTML mit Schema.org JSON-LD (Article, BreadcrumbList, FAQPage).</div>
+    <div class="step"><b>5 · Index</b>Karte zu <code>index.html</code> hinzufügen, neuer Eintrag in <code>sitemap.xml</code>.</div>
+    <div class="step"><b>6 · Push</b><code>git add . &amp;&amp; git commit &amp;&amp; git push</code> — GitHub Pages baut automatisch.</div>
+  </div>
+  <p class="footnote">Eine Iteration dauert in der Praxis 15–35 Sekunden — der Rest des 5-Minuten-Fensters ist Idle-Time.</p>
+</section>
+
+<section class="slide" id="s4">
+  <div class="num">04 / Modelle</div>
+  <h2>Warum diese Modelle</h2>
+  <div class="grid two">
+    <div class="card">
+      <h3>Text · google/gemini-2.5-flash-lite</h3>
+      <p>Sehr günstig (~$0.10 / $0.40 pro 1M Token In/Out), beherrscht JSON-Mode, deutsche Fachsprache solide. Sechs Artikel kosten zusammen unter 1 Cent.</p>
+    </div>
+    <div class="card">
+      <h3>Bild · google/gemini-3.1-flash-image-preview</h3>
+      <p>Nano-Banana-Nachfolger. Fotorealistisch, akzeptiert Stil-DNA-Prompts mit „no people, no text, no logos", liefert in 10–25 Sekunden. Ca. 4 Cent pro Bild.</p>
+    </div>
+  </div>
+  <p>Provider-Routing über OpenRouter: ein API-Key, beide Modelle. Falls ein Modell Limits erreicht, wechselt OpenRouter transparent auf einen Backup-Provider — kein Code-Change nötig.</p>
+  <p class="footnote">Gesamtkosten der 30-Minuten-Demo: ca. <strong>0,25 €</strong> Modellkosten, plus statisches GitHub-Pages-Hosting (kostenlos).</p>
+</section>
+
+<section class="slide" id="s5">
+  <div class="num">05 / Code</div>
+  <h2>Die Schleife — minimal</h2>
+<pre>for i, topic in enumerate(TOPICS):
+    target = start + i * INTERVAL          # Tick-Zeit
+    time.sleep(max(0, target - time.time()))
+    try:
+        gen_one(topic)                     # Text + Bild + HTML + Push
+    except Exception as e:
+        log(f"FAILED {topic['slug']}: {e}") # Fehler tolerieren, weiter</pre>
+  <p>Drei Eigenschaften, die das hier robust machen:</p>
+  <ul>
+    <li><strong>Absolute Zeitstempel</strong> statt <code>sleep(300)</code> — verhindert Drift, wenn ein Lauf länger dauert als geplant.</li>
+    <li><strong>Try/Except pro Topic</strong> — ein einzelner API-Fehler kippt nicht die gesamte Pipeline.</li>
+    <li><strong>Idempotenter HTML-Output</strong> — gleicher Slug überschreibt sauber, Sitemap-Eintrag wird nur einmal angehängt.</li>
+  </ul>
+</section>
+
+<section class="slide" id="s6">
+  <div class="num">06 / Qualität</div>
+  <h2>Was nicht automatisierbar ist</h2>
+  <p class="lede">Die ehrliche Seite: ein 30-Sekunden-Modell-Lauf ersetzt keine Fachredaktion. Drei Leitplanken halten die Qualität in einem vertretbaren Bereich.</p>
+  <div class="grid three">
+    <div class="card"><h3>E-E-A-T</h3><p>Demo-Hinweis auf jeder Seite, klare Auszeichnung als KI-generiert, Autorenangabe + Kontakt — keine Täuschung.</p></div>
+    <div class="card"><h3>Keine Fake-Studien</h3><p>Prompt verbietet erfundene Quotes und konkrete Studienzahlen. Quellenhinweise nur generisch.</p></div>
+    <div class="card"><h3>Bandbreiten statt Punkte</h3><p>Erzwungene „15–22 %" statt „17,3 %" — verhindert scheingenaue Aussagen, die nach Fakten klingen, aber Modell-Halluzination sind.</p></div>
+  </div>
+  <p class="footnote">Für ein produktives Setup würde eine zweite Stufe folgen: redaktionelle Freigabe via Pull Request statt direktem Push auf <code>main</code>.</p>
+</section>
+
+<section class="slide" id="s7">
+  <div class="num">07 / Mehr</div>
+  <h2>Wie geht es weiter?</h2>
+  <p class="lede">Der Bauplan eignet sich für jede Art Content-Pipeline: News-Briefing, interne Reports, Wissensbasis-Updates, Status-Pages.</p>
+  <ul>
+    <li>Statt Topic-Liste: <strong>RSS-Feed oder Issue-Tracker</strong> als Quelle.</li>
+    <li>Statt direkter Push: <strong>Pull Request</strong>, mit menschlichem Review-Step.</li>
+    <li>Statt Cron im Bash: <strong>GitHub Actions</strong> oder ein Scheduler im Hosting-Stack — keine eigene Infrastruktur.</li>
+    <li><strong>Feedback-Loop</strong>: Klicks/Lesezeit pro Artikel zurück in die Topic-Auswahl der nächsten Iteration.</li>
+  </ul>
+  <p>Live ansehen: <a class="link" href="./">Startseite</a> · <a class="link" href="https://github.com/nichtagentur/gebaeude-digital">Repository</a> · <a class="link" href="auto_generate.py">Generator-Script</a></p>
+  <p class="footnote">© 2026 Gebäude-Digital · Workshop-Demo, AI Computer Use Workshop Wien</p>
+</section>
+
+</div>
+</body>
+</html>
